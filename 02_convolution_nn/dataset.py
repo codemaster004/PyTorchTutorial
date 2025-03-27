@@ -11,8 +11,10 @@ class CNNDataset(Dataset):
 		data = pd.read_csv(dataset_path)
 		self.transform = transform  # transformation for data optional
 		
-		self.paths = data['path']
-		self.labels = data['label']
+		self.paths = data['path']  # Copy raw paths
+		# Labels need to be integers, so we first need to specify way to connect label with number
+		self.labels_lookup = sorted(data['label'].unique().tolist())  # index in table of alphabetical order should work.
+		self.labels = data['label'].apply(lambda x: self.labels_lookup.index(x))  # now just replace raw label with correct index
 	
 	def __len__(self):
 		return self.paths.shape[0]  # Length of entire dataset is length of path column
