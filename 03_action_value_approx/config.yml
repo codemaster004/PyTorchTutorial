@@ -1,0 +1,4 @@
+train:
+  nn_learning_rate: 0.001
+  nn_batch_size: 64
+  

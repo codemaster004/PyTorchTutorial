@@ -30,7 +30,7 @@ def evaluate_policy(model):
 	
 	trajectories = []
 	for i in range(1_000):
-		trajectory_p0, trajectory_p1 = episode(env, model, lam=0.5)
+		trajectory_p0, trajectory_p1 = episode(env, model, lam=0.1, epsilon=0.5)
 		trajectories.extend(trajectory_p0)
 		trajectories.extend(trajectory_p1)
 	
@@ -44,7 +44,7 @@ def train():
 	optimizer = SGD(model.parameters(), lr=0.001)
 	
 	logger.info("Starting DeepMonteCarlo training")
-	for epoch in range(100):
+	for epoch in range(30):
 		model.eval()
 		df = evaluate_policy(model)
 		dataset = RLDataset(df)
@@ -65,7 +65,8 @@ def train():
 			total_loss += loss.item() * reward.size(0)
 		
 		epoch_loss = total_loss / len(dataset)
-		logger.info(f"Epoch {epoch} Loss: {epoch_loss:.4f}")
+		if (epoch+1) % 10 == 0:
+			logger.info(f"Epoch {epoch+1} Loss: {epoch_loss:.4f}")
 	
 	return model
 

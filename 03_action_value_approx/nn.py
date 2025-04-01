@@ -8,8 +8,10 @@ class LinearNN(nn.Module):
 		
 		# nn.Linear: y = xA^T + b
 		self.linear = nn.Linear(input_dim, output_dim)
+		nn.init.zeros_(self.linear.weight)
+		nn.init.zeros_(self.linear.bias)
 	
 	def forward(self, x):
-		x = torch.tanh(self.linear(x))
+		x = torch.relu(self.linear(x))
 		
 		return x
