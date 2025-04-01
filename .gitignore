@@ -12,3 +12,4 @@ venv/
 # Ignore all data/ folders in subdirectories of this directory
 */data/
 */steps/
+*/logs/
