@@ -15,7 +15,7 @@ class RLDataset(Dataset):
 	
 	def __getitem__(self, idx):
 		state = self.states[idx]
-		action = self.actions[idx]
+		action = self.actions[idx]  # TODO: CONVERT THIS INTO A VECTOR
 		
 		x = np.array(np.append(state, action))
 		x = torch.tensor(x, dtype=torch.float32)

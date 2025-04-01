@@ -41,10 +41,10 @@ def episode(environment, model, lam=1.0, epsilon=1.0):
 	while not at_state_T:
 		# Picking an action
 		action_t = actions[mask.astype(bool)]
-		if 1 - np.random.rand() < epsilon:
-			action_t = eval_best_action(state_t, action_t, model)
-		else:
+		if np.random.rand() < epsilon:
 			action_t = np.random.choice(action_t)
+		else:
+			action_t = eval_best_action(state_t, action_t, model)
 		
 		# Perform the action
 		environment.step(action_t)
