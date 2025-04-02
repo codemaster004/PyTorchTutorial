@@ -1,4 +1,16 @@
 train:
-  nn_learning_rate: 0.001
-  nn_batch_size: 64
-  
+  learning_rate: 0.01
+  momentum: 0.01
+  batch_size: 64
+  epochs: 100
+  episodes: 1000
+  discounting: 0.9
+  epsilon: 0.8
+  log_step: 1
+  save_step: 50
+  device: "cpu"
+
+network:
+  input_dim: 49  # CONST
+  output_dim: 1  # CONST
+  hidden_dim: 20

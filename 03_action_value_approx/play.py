@@ -46,7 +46,7 @@ def main(model):
 
 
 if __name__ == '__main__':
-	model = LinearNN(43, 1)
+	model = LinearNN(49, 1, 20)
 	model.load_state_dict(torch.load('steps/final_weights.pth'))
 	model.eval()
 	main(model)

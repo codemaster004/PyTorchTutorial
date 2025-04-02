@@ -1,5 +1,5 @@
-import numpy as np
 from pettingzoo.classic import connect_four_v3
+import numpy as np
 
 import torch
 
