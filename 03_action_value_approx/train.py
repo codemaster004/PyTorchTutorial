@@ -1,3 +1,5 @@
+import os
+
 from pettingzoo.classic import connect_four_v3  # make sure to run `pip install 'pettingzoo[classic]'`
 import pandas as pd
 import logging
@@ -132,5 +134,8 @@ def train():
 
 
 if __name__ == '__main__':
+	os.makedirs('steps', exist_ok=True)
+	os.makedirs('steps', exist_ok=True)
+	
 	trained_model = train()
 	torch.save(trained_model.state_dict(), './steps/final_weights.pth')
