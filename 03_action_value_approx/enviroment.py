@@ -20,7 +20,9 @@ def eval_best_action(state_t, actions, model):
 	# To disable gradient calculation
 	with torch.no_grad():
 		for action in actions:
-			x = torch.tensor(np.append(state_t, action), dtype=torch.float32)
+			action_one_hot = np.zeros(7)
+			action_one_hot[action] = 1
+			x = torch.tensor(np.append(state_t, action_one_hot), dtype=torch.float32)
 			y = model(x)
 			if y > max_reward:
 				action_t, max_reward = action, y
