@@ -5,14 +5,16 @@ import torch
 
 
 def calc_cumsum_rewards(trajectory_m, lam):
+	# todo: state of draw
 	if trajectory_m[-1][2] != 1:
 		trajectory_m[-1][2] = lam * -1
-		
+	
+	# Calculating rewards from final reward with discounting lam
 	running_sum = 0.0
 	for t in reversed(range(len(trajectory_m))):
 		running_sum = trajectory_m[t][2] + lam * running_sum
 		trajectory_m[t][2] = running_sum
-	return trajectory_m
+	return trajectory_m  # return trajectory with updated rewards
 
 
 def eval_best_action(state_t, actions, model):

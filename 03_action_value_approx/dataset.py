@@ -8,6 +8,7 @@ class RLDataset(Dataset):
 		self.states = dataframe[0]
 		self.rewards = dataframe[2]
 		
+		# Convert from index value to one-hot encoding
 		self.actions = np.zeros((len(dataframe[1]), 7), dtype=int)
 		self.actions[np.arange(len(dataframe[1])), dataframe[1]] = 1
 	
@@ -18,6 +19,7 @@ class RLDataset(Dataset):
 		state = self.states[idx]
 		action = self.actions[idx]
 		
+		# Conversion into tensors
 		x = np.array(np.append(state, action))
 		x = torch.tensor(x, dtype=torch.float32)
 		
