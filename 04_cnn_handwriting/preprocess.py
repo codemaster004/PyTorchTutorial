@@ -30,8 +30,12 @@ def create_dataset_csv():
 				path = os.path.join(source_dir, sub_dir, path)
 				y1, x1, y2, x2 = after_split[-4], after_split[-3], after_split[-2], after_split[-1]
 				label = " ".join(after_split[1:-4])
-				print(label)
 				x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+				# Because there are errors in the dataset
+				x1, x2 = min(x1, x2), max(x1, x2)
+				y1, y2 = min(y1, y2), max(y1, y2)
+				if y1 == y2 or x1 == x2:
+					continue
 				# Add to dataset
 				dataset.append({"path": path, "label": label, "x1": x1, "y1": y1, "x2": x2, "y2": y2})
 	# Save the file

@@ -14,7 +14,7 @@ class CNN(nn.Module):
 			nn.Conv2d(in_channels=8, out_channels=32, kernel_size=3, padding=1),
 			nn.ReLU(),
 			nn.MaxPool2d(2, 2),
-			
+
 			nn.Conv2d(in_channels=32, out_channels=128, kernel_size=3, padding=1),
 			nn.ReLU(),
 			nn.AdaptiveAvgPool2d(1),
