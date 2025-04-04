@@ -26,7 +26,9 @@ def create_dataset_csv():
 				# Read the values in each row
 				after_split = line.split(" ")
 				path = after_split[0]
-				x1, y1, x2, y2 = after_split[-4], after_split[-3], after_split[-2], after_split[-1]
+				path = path.replace('"', '')
+				path = os.path.join(source_dir, sub_dir, path)
+				y1, x1, y2, x2 = after_split[-4], after_split[-3], after_split[-2], after_split[-1]
 				label = " ".join(after_split[1:-4])
 				print(label)
 				x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
