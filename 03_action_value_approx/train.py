@@ -53,7 +53,7 @@ def evaluate_policy(model, episodes, lam, epsilon):
 	env.reset()  # Start by resetting
 	
 	trajectories = []  # Raw trajectories from each game joined together [[state vec, action index, reward], ...]
-	for i in range(episodes):
+	for i in range(episodes):  # todo: multithreading
 		# Run episode with discounting parameter lambda and random move chance epsilon
 		trajectory_p0, trajectory_p1 = episode(env, model, lam=lam, epsilon=epsilon)
 		trajectories.extend(trajectory_p0)  # Add trajectory of player 0
@@ -100,14 +100,14 @@ def train():
 		
 		df = evaluate_policy(model, train_opt['episodes'], train_opt['discounting'], train_opt['epsilon'])  # Run games
 		# Convert collected games states into a dataset
-		dataset = RLDataset(df)
+		dataset = RLDataset(df)  # todo: dataset does not need to be discarded every epoch, maybe every few
 		dataloader = DataLoader(dataset, batch_size=train_opt['batch_size'], shuffle=True)
 		
 		model.train()  # Set the model into training mode
 		
 		total_loss = 0.0
 		for state_action, reward in dataloader:
-			state_action, reward = state_action.to("cpu"), reward.to("cpu")
+			state_action, reward = state_action.to("cpu"), reward.to("cpu")  # todo: DEVICE in config
 			# Standard loss optimization
 			y = model(state_action)
 			loss = criterion(y, reward)

@@ -40,6 +40,7 @@ def episode(environment, model, lam=1.0, epsilon=1.0):
 	actions = np.array([0, 1, 2, 3, 4, 5, 6])  # all possible actions
 	mask = np.ones(7)  # initial mask for actions, all allowed
 	
+	# todo: maybe not include first few moves, or not allways (stabilising the dataset)
 	trajectory_m = []  # [s_0, a_0, r_1], [s_1, a_1, r_2], ...
 	at_state_T = False
 	while not at_state_T:
@@ -79,11 +80,7 @@ if __name__ == '__main__':
 	env = connect_four_v3.env()
 	env.reset()
 	
-	for i in range(10):
-		trajectory_p0, trajectory_p1 = episode(env, None, lam=0.9, epsilon=0)
-		
-		if i % 1000 == 0:
-			print(f"Iteration {i}")
-			
+	trajectory_p0, trajectory_p1 = episode(env, None, lam=0.9, epsilon=0)
+	
 	# for s, a, r in trajectory_p0:
 	# 	print(s, a, r)
